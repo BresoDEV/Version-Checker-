@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lero Lero</title>
+</head>
+<style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #333;
+        color: aliceblue;
+
+    }
+
+    .ct {
+        margin-left: 10%;
+        margin-top: 10%;
+        width: 80%;
+        background-color: #555;
+    }
+
+    button,
+    textarea,
+    input {
+        background-color: #333;
+        color: aliceblue;
+        border-radius: 10px;
+        width: 80%;
+        padding: 10px;
+        margin-bottom: 6px;
+        border: none;
+      
+    } 
+    input {
+        background-color: #333;
+        color: rgb(254, 190, 0);
+        border-radius: 10px;
+        width: 80%;
+        padding: 10px;
+        margin-bottom: 6px;
+        border: none;
+      text-align: center;
+    }
+
+    button:active {
+        scale: 1.01;
+    }
+</style>
+
+<body>
+    <div class="ct">
+        <center>
+            <h2 id="resultado">Version Check</h2>
+            <textarea id="textarea" cols="30" rows="10" placeholder="Cole aqui o texto para verificar"></textarea><br>
+
+            <input type="text" id="numFrases" placeholder="Cole aqui a chave de autenticidade">
+            <button id="Gerar">Gerar Chave</button>
+            <button id="Verificar">Verificar Versao</button>
+        </center>
+    </div>
+</body>
+
+<script>
+    const textarea = document.getElementById('textarea');
+    const numFrases = document.getElementById('numFrases');
+    const Gerar = document.getElementById('Gerar');
+    const Verificar = document.getElementById('Verificar');
+    const resultado = document.getElementById('resultado');
+
+    Gerar.addEventListener('click', () => {
+      numFrases.value = joaat(textarea.value);
+    });
+
+    Verificar.addEventListener('click', () => {
+      var joaaaat = joaat(textarea.value);
+      if(numFrases.value === joaaaat)
+      {
+        resultado.innerHTML='<font style="color:lime">Texto Original</font>';
+      }else {
+        resultado.innerHTML='<font style="color:red">Texto Alterado</font>';
+      }
+    });
+
+
+    function joaat(s) {
+        let h = 0;
+        for (let i = 0; i < s.length; i++) {
+            h += s.charCodeAt(i);
+            h += (h << 10);
+            h ^= (h >> 6);
+        }
+        h += (h << 3);
+        h ^= (h >> 11);
+        h += (h << 15);
+        h = h >>> 0
+        return  (Math.pow(h,2)).toString(16).toUpperCase();
+    }
+
+</script>
+
+</html>
